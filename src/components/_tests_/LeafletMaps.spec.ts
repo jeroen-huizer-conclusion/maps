@@ -19,6 +19,7 @@ describe("Leaflet maps", () => {
         width: 50,
         widthUnit: "percentage",
         mapProvider: "openStreet",
+        mapType: "OpenStreetMap_Mapnik",
         divStyles: {},
         inPreviewMode: false
     };
