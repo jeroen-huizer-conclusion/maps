@@ -163,10 +163,11 @@ export class LeafletMap extends Component<LeafletMapProps, LeafletMapState> {
         } else {
             urlTemplate = customUrls.openStreetMap;
             mapAttribution = mapAttr.openStreetMapAttr;
-            let providerName = mapType.replace(/_/g, '.');
-            return tileLayer.provider(providerName) ;
+            const providerName = mapType.replace(/_/g, ".");
+
+            return tileLayer.provider(providerName);
         }
-        
+
         return tileLayer(urlTemplate, {
             attribution: mapAttribution,
             id: mapProvider === "mapBox" ? "mapbox.streets" : undefined
