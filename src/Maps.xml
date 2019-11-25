@@ -147,6 +147,130 @@
                 </property>
             </properties>
         </property>
+        <property key="imageOverlays" type="object" isList="true" required="false">
+            <caption>Image overlays</caption>
+            <category>Map properties</category>
+            <description/>
+            <properties>   
+                <!-- Data sources-->
+                <property key="dataSourceType" type="enumeration" defaultValue="static">
+                    <caption>Data source</caption>
+                    <category>Data source</category>
+                    <description/>
+                    <enumerationValues>
+                        <enumerationValue key="static">Static</enumerationValue>
+                        <enumerationValue key="XPath">Database</enumerationValue>
+                        <enumerationValue key="microflow">Microflow</enumerationValue>
+                        <enumerationValue key="nanoflow">Nanoflow</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="imageOverlayEntity" type="entity" required="false">
+                    <caption>Image overlay entity</caption>
+                    <category>Data source</category>
+                    <description></description>
+                </property>
+                <property key="entityConstraint" type="entityConstraint" entityProperty="imageOverlayEntity" required="false">
+                    <caption>XPath constraint</caption>
+                    <category>Data source</category>
+                    <description>Constraint for the data source 'Database' images. It could be used with relation to '[%CurrentObject%]'</description>
+                </property>
+                <property key="inputParameterEntity" type="entity" required="false">
+                    <caption>Input parameter entity</caption>
+                    <category>Data source</category>
+                    <description>Entity of the parameter passed to the microflow or nanoflow, this should be equal to the context</description>
+                </property>
+                <property key="dataSourceMicroflow" type="microflow" entityProperty="inputParameterEntity" required="false">
+                    <caption>Microflow</caption>
+                    <category>Data source</category>
+                    <description>The datasource 'Microflow' that returns the list of overlay images</description>
+                    <returnType type="Object" entityProperty="imageOverlayEntity" isList="true"/>
+                </property>
+                <property key="dataSourceNanoflow" type="nanoflow" entityProperty="inputParameterEntity" required="false">
+                    <caption>Nanoflow</caption>
+                    <category>Data source</category>
+                    <description>The datasource 'Nanoflow' that returns the list of overlay images</description>
+                    <returnType type="Object" isList="true" entityProperty="imageOverlayEntity"/>
+                </property>
+
+                <!-- Static values-->
+                <property key="staticOverlayImage" type="image" required="false">
+                    <caption>Static image</caption>
+                    <category>Static</category>
+                    <description>Image from the modeler</description>
+                </property>
+                <property key="staticTopLeftX" type="string" required="false">
+                    <caption>Top left latitude</caption>
+                    <category>Static</category>
+                    <description/>
+                </property>
+                <property key="staticTopLeftY" type="string" required="false">
+                    <caption>Top left longitude</caption>
+                    <category>Static</category>
+                    <description/>
+                </property>
+                <property key="staticBottomRightX" type="string" required="false">
+                    <caption>Bottom right latitude</caption>
+                    <category>Static</category>
+                    <description/>
+                </property>
+                <property key="staticBottomRightY" type="string" required="false">
+                    <caption>Bottom right longitude</caption>
+                    <category>Static</category>
+                    <description/>
+                </property>
+
+                <!-- Dynamic Values-->
+                <property key="overlayImage" type="enumeration" defaultValue="systemImage">
+                    <caption>Overlay image</caption>
+                    <category>Entity</category>
+                    <description>When set to 'System image' the overlay entity must inherit from System.Image.</description>
+                    <enumerationValues>
+                        <enumerationValue key="systemImage">System image</enumerationValue>
+                        <enumerationValue key="urlImage">URL</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="topLeftXAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
+                    <caption>Top left latitude</caption>
+                    <category>Entity</category>
+                    <description/>
+                    <attributeTypes>
+                        <attributeType name="Decimal"/>
+                    </attributeTypes>
+                </property>
+                <property key="topLeftYAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
+                    <caption>Top left longitude</caption>
+                    <category>Entity</category>
+                    <description/>
+                    <attributeTypes>
+                        <attributeType name="Decimal"/>
+                    </attributeTypes>                    
+                </property>
+                <property key="bottomRightXAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
+                    <caption>Bottom right latitude</caption>
+                    <category>Entity</category>
+                    <description/>
+                    <attributeTypes>
+                        <attributeType name="Decimal"/>
+                    </attributeTypes>                    
+                </property>
+                <property key="bottomRightYAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
+                    <caption>Bottom right longitude</caption>
+                    <category>Entity</category>
+                    <description/>
+                    <attributeTypes>
+                        <attributeType name="Decimal"/>
+                    </attributeTypes>                    
+                </property>  
+                <property key="urlAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
+                    <caption>URL Attribute</caption>
+                    <category>Entity</category>
+                    <description/>
+                    <attributeTypes>
+                        <attributeType name="String"/>
+                    </attributeTypes>                    
+                </property>  
+            </properties>
+        </property>
         <property key="mapProvider" type="enumeration" defaultValue="openStreet">
             <caption>Map provider</caption>
             <category>Map properties</category>

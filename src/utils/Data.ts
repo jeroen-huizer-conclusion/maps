@@ -120,3 +120,29 @@ export const getStaticMarkerUrl = (enumImage?: string, staticMarkerIcon?: string
         : staticMarkerIcon
         ? UrlHelper.getStaticResourceUrl(staticMarkerIcon)
         : "";
+
+export const fetchImageOverlayURL = (dataSourceProps: Container.DataSourceImageOverlayProps, mxObject?: mendix.lib.MxObject): Promise<string> => {
+
+    const { overlayImage, dataSourceType } = dataSourceProps;
+
+    if (dataSourceType === "static") {
+        return Promise.resolve(dataSourceProps.staticOverlayImage ? UrlHelper.getStaticResourceUrl(dataSourceProps.staticOverlayImage) : "");
+    } else {
+        if (overlayImage === "systemImage" && mxObject && mxObject.get("HasContents")) {
+
+            const url = window.mx.data.getDocumentUrl(mxObject.getGuid(), mxObject.get("changedDate") as number);
+
+            return new Promise((resolve, reject) => {
+                window.mx.data.getImageUrl(url,
+                    imageUrl => resolve(imageUrl),
+                    error => reject(new Error(`Error while retrieving the image url: ${error.message}`))
+                );
+            });
+        } else if (overlayImage === "urlImage" && mxObject && dataSourceProps.urlAttribute) {
+            return Promise.resolve(String(mxObject.get(dataSourceProps.urlAttribute)));
+        } else {
+            return Promise.reject(new Error(`Could not determine overlay image URL.`));
+        }
+    }
+
+};

@@ -4,7 +4,7 @@ import { LeafletEvent } from "leaflet";
 import GoogleMap from "./GoogleMap";
 import { LeafletMap } from "./LeafletMap";
 import { Container } from "../utils/namespace";
-import { fetchData, fetchMarkerObjectUrl, parseStaticLocations } from "../utils/Data";
+import { fetchData, fetchImageOverlayURL, fetchMarkerObjectUrl, parseStaticLocations } from "../utils/Data";
 import Utils from "../utils/Utils";
 import { validLocation, validateLocationProps } from "../utils/Validations";
 import { hot } from "react-hot-loader";
@@ -20,12 +20,15 @@ import "../ui/Maps.css";
 type MapsContainerProps = Container.MapsContainerProps;
 type MapProps = Container.MapProps;
 type Location = Container.Location;
+type ImageOverlay = Container.ImageOverlay;
 type DataSourceLocationProps = Container.DataSourceLocationProps;
 
 export interface MapsContainerState {
     alertMessage?: string;
     locations: Location[];
+    imageOverlays: ImageOverlay[];
     isFetchingData?: boolean;
+    isFetchingImageOverlays: boolean;
 }
 
 class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
@@ -33,7 +36,9 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
     readonly state: MapsContainerState = {
         alertMessage: "",
         locations: [],
-        isFetchingData: false
+        imageOverlays: [],
+        isFetchingData: false,
+        isFetchingImageOverlays : false
     };
 
     render() {
@@ -41,7 +46,9 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
         const commonProps = {
             ...this.props as MapProps,
             allLocations: this.state.locations,
+            allImageOverlays: this.state.imageOverlays,
             fetchingData: this.state.isFetchingData,
+            fetchingImageOverlays: this.state.isFetchingImageOverlays,
             className: this.props.class,
             alertMessage: this.state.alertMessage,
             divStyles: Utils.parseStyle(this.props.style),
@@ -62,6 +69,7 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
             this.setState({ alertMessage: validationMessage });
         } else {
             this.fetchData(nextProps.mxObject);
+            this.fetchImageOverlays(nextProps.mxObject);
         }
     }
 
@@ -112,12 +120,12 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
                 const alertMessage: string[] = [];
                 const locations = allLocations.reduce((loc1, loc2) => loc1.concat(loc2), [])
                     .filter(location => {
-                        if (validLocation(location)) {
+                if (validLocation(location)) {
                             return true;
                         }
-                        alertMessage.push(`invalid location: latitude '${location.latitude}', longitude '${location.longitude}'`);
+                alertMessage.push(`invalid location: latitude '${location.latitude}', longitude '${location.longitude}'`);
 
-                        return false;
+                return false;
                     });
                 this.setState({
                     locations,
@@ -235,6 +243,63 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
                     }
                 });
             }
+        }
+    }
+
+    private fetchImageOverlays = (contextObject?: mendix.lib.MxObject) => {
+        this.setState({ isFetchingImageOverlays: true });
+        Promise.all(this.props.imageOverlays.map(overlay => this.retrieveImageOverlays(overlay, contextObject)))
+            .then(imageOverlays => imageOverlays.reduce((o1, o2) => o1.concat(o2, [])))
+            .then(imageOverlays => {
+                this.setState({
+                    imageOverlays,
+                    isFetchingImageOverlays: false
+                });
+            });
+
+    }
+
+    private retrieveImageOverlays(dataSourceProps: Container.DataSourceImageOverlayProps, contextObject?: mendix.lib.MxObject): Promise<ImageOverlay[]> {
+
+        if (dataSourceProps.dataSourceType === "static") {
+            return fetchImageOverlayURL(dataSourceProps)
+                .then(imageUrl => {
+                    return [ {
+                        topLeftX: Number(dataSourceProps.staticTopLeftX),
+                        topLeftY: Number(dataSourceProps.staticTopLeftY),
+                        bottomRightX: Number(dataSourceProps.staticBottomRightX),
+                        bottomRightY: Number(dataSourceProps.staticBottomRightY),
+                        url: imageUrl
+                    } ];
+                }
+            );
+        } else {
+
+            return fetchData({
+                type: dataSourceProps.dataSourceType,
+                entity: dataSourceProps.imageOverlayEntity,
+                mxform: this.props.mxform,
+                constraint: dataSourceProps.entityConstraint,
+                microflow: dataSourceProps.dataSourceMicroflow,
+                nanoflow: dataSourceProps.dataSourceNanoflow,
+                contextObject,
+                inputParameterEntity: dataSourceProps.inputParameterEntity,
+                requiresContext: false
+            }).then(mxObjects => Promise.all(mxObjects.map(mxObjectToOverlay)));
+        }
+
+        function mxObjectToOverlay(mxObject: mendix.lib.MxObject): Promise<ImageOverlay> {
+            return fetchImageOverlayURL(dataSourceProps, mxObject)
+            .then(imageUrl => {
+
+                return {
+                    topLeftX: Number(mxObject.get(dataSourceProps.topLeftXAttribute)),
+                    topLeftY: Number(mxObject.get(dataSourceProps.topLeftYAttribute)),
+                    bottomRightX: Number(mxObject.get(dataSourceProps.bottomRightXAttribute)),
+                    bottomRightY: Number(mxObject.get(dataSourceProps.bottomRightYAttribute)),
+                    url: imageUrl
+                };
+            });
         }
     }
 }

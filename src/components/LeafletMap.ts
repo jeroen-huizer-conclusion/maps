@@ -1,12 +1,14 @@
 import { Component, createElement } from "react";
 import {
     FeatureGroup,
+    LatLngBounds,
     LatLngLiteral,
     LeafletEvent,
     Map,
     Marker,
     TileLayerOptions,
     icon,
+    imageOverlay,
     tileLayer
 } from "leaflet";
 import * as classNames from "classnames";
@@ -102,6 +104,9 @@ export class LeafletMap extends Component<LeafletMapProps, LeafletMapState> {
             this.setDefaultCenter(nextProps);
             this.setState({ resized: false });
         }
+        if (this.props.allImageOverlays !== nextProps.allImageOverlays) {
+            this.renderImageOverlays(nextProps);
+        }
     }
 
     componentDidUpdate() {
@@ -192,6 +197,24 @@ export class LeafletMap extends Component<LeafletMapProps, LeafletMapState> {
         } else if (this.map) {
             this.map.removeLayer(this.markerGroup);
             this.map.setZoom(this.props.zoomLevel);
+        }
+    }
+
+    private renderImageOverlays(props: LeafletMapProps) {
+        if (this.map && !props.fetchingImageOverlays && props.allImageOverlays) {
+            const map = this.map;
+            props.allImageOverlays.map((overlayData) => {
+
+                const bounds = new LatLngBounds([ overlayData.topLeftX, overlayData.topLeftY ], [ overlayData.bottomRightX, overlayData.bottomRightY ]);
+                const url = overlayData.url;
+                if (url && url.length) {
+                    return imageOverlay(url, bounds);
+                }
+
+                return imageOverlay("img/MyFirstModule$Images$Mendix_logo.svg", bounds);
+            }).forEach(overlay => {
+                map.addLayer(overlay);
+            });
         }
     }
 

@@ -1,6 +1,7 @@
 export namespace Container {
 
     export type MarKerImages = "systemImage" | "staticImage" | "enumImage";
+    export type OverlayImages = "systemImage" | "urlImage";
     export type DataSource = "static" | "XPath" | "microflow" | "context" | "nanoflow";
     export type OnClickOptions = "doNothing" | "showPage" | "callMicroflow" | "callNanoflow";
     export type PageLocation = "content" | "popup" | "modal";
@@ -17,6 +18,7 @@ export namespace Container {
     export interface MapsContainerProps extends WrapperProps, MapProps {
         locations: DataSourceLocationProps[];
         markerImages: EnumerationImages[];
+        imageOverlays: DataSourceImageOverlayProps[];
     }
 
     export interface DataSourceLocationProps extends DatabaseLocationProps, StaticLocationProps, MarkerIconProps, MarkerEvents {
@@ -44,6 +46,46 @@ export namespace Container {
         mxObject?: mendix.lib.MxObject;
         url?: string;
         locationAttr?: Container.DataSourceLocationProps;
+    }
+
+    export interface DataSourceImageOverlayProps extends DataBaseImageOverlayProps, StaticImageOverlayProps {
+        dataSourceType: DataSource;
+        overlayImage: OverlayImages;
+
+        imageOverlayEntity: string;
+
+        entityConstraint: string;
+        dataSourceMicroflow: string;
+        dataSourceNanoflow: Data.Nanoflow;
+        inputParameterEntity: string;
+    }
+
+    export interface DataBaseImageOverlayProps {
+
+        topLeftXAttribute: string;
+        topLeftYAttribute: string;
+        bottomRightXAttribute: string;
+        bottomRightYAttribute: string;
+
+        urlAttribute: string;
+    }
+
+    export interface StaticImageOverlayProps {
+        staticOverlayImage: string;
+
+        staticTopLeftX: string;
+        staticTopLeftY: string;
+        staticBottomRightX: string;
+        staticBottomRightY: string;
+    }
+
+    export interface ImageOverlay {
+
+        topLeftX: number;
+        topLeftY: number;
+        bottomRightX: number;
+        bottomRightY: number;
+        url: string;
     }
 
     export interface DefaultLocations {
@@ -127,9 +169,11 @@ export namespace MapUtils {
 
     export interface SharedProps {
         allLocations?: Container.Location[];
+        allImageOverlays?: Container.ImageOverlay[];
         className?: string;
         alertMessage?: string;
         fetchingData?: boolean;
+        fetchingImageOverlays?: boolean;
         divStyles: object;
         mapsToken?: string;
         inPreviewMode: boolean;
