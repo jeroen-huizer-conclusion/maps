@@ -127,6 +127,7 @@ export namespace Container {
 
     export interface MapProps extends MapControlOptions, DefaultLocations, MapUtils.Dimensions {
         mapProvider: mapProviders;
+        mapType: string;
         apiToken?: string;
     }
 }

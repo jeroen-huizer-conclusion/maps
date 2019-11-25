@@ -11,6 +11,7 @@ import {
     imageOverlay,
     tileLayer
 } from "leaflet";
+import "leaflet-providers";
 import * as classNames from "classnames";
 import ReactResizeDetector from "react-resize-detector";
 
@@ -153,7 +154,7 @@ export class LeafletMap extends Component<LeafletMapProps, LeafletMapState> {
     }
 
     private setTileLayer = () => {
-        const { mapProvider, mapsToken } = this.props;
+        const { mapProvider, mapsToken, mapType } = this.props;
 
         let urlTemplate = "";
         let mapAttribution = "";
@@ -167,6 +168,9 @@ export class LeafletMap extends Component<LeafletMapProps, LeafletMapState> {
         } else {
             urlTemplate = customUrls.openStreetMap;
             mapAttribution = mapAttr.openStreetMapAttr;
+            const providerName = mapType.replace(/_/g, ".");
+
+            return tileLayer.provider(providerName);
         }
 
         return tileLayer(urlTemplate, {

@@ -282,6 +282,80 @@
                 <enumerationValue key="googleMaps">Google Maps</enumerationValue>
             </enumerationValues>
         </property>
+
+        <property key="mapType" type="enumeration" defaultValue="OpenStreetMap_Mapnik" required="true">
+            <caption>Maptype</caption>
+            <category>Map properties</category>
+            <description>Open street map only. Set the map type. See http://leaflet-extras.github.io/leaflet-providers/preview/index.html for examples. These providers are all free to use.</description>
+            <enumerationValues>
+                <enumerationValue key="OpenStreetMap_Mapnik">OpenStreetMap.Mapnik</enumerationValue>
+                <enumerationValue key="OpenStreetMap_DE">OpenStreetMap.DE</enumerationValue>
+                <enumerationValue key="OpenStreetMap_France">OpenStreetMap.France</enumerationValue>
+                <enumerationValue key="OpenStreetMap_HOT">OpenStreetMap.HOT</enumerationValue>
+
+                <enumerationValue key="OpenTopoMap">OpenTopoMap</enumerationValue>
+
+                <enumerationValue key="Thunderforest_OpenCycleMap">Thunderforest.OpenCycleMap</enumerationValue>
+                <enumerationValue key="Thunderforest_Transport">Thunderforest.Transport</enumerationValue>
+                <enumerationValue key="Thunderforest_TransportDark">Thunderforest.TransportDark</enumerationValue>
+                <enumerationValue key="Thunderforest_SpinalMap">Thunderforest.SpinalMap</enumerationValue>
+                <enumerationValue key="Thunderforest_Landscape">Thunderforest.Landscape</enumerationValue>
+                <enumerationValue key="Thunderforest_Outdoors">Thunderforest.Outdoors</enumerationValue>
+                <enumerationValue key="Thunderforest_Pioneer">Thunderforest.Pioneer</enumerationValue>
+
+                <enumerationValue key="Hydda_Full">Hydda.Full</enumerationValue>
+                <enumerationValue key="Hydda_Base">Hydda.Base</enumerationValue>
+                <enumerationValue key="Hydda_RoadsAndLabels">Hydda.RoadsAndLabels</enumerationValue>
+
+                <enumerationValue key="Stamen_TonerBackground">Stamen.TonerBackground</enumerationValue>
+                <enumerationValue key="Stamen_TonerHybrid">Stamen.TonerHybrid</enumerationValue>
+                <enumerationValue key="Stamen_TonerLines">Stamen.TonerLines</enumerationValue>
+                <enumerationValue key="Stamen_TonerLabels">Stamen.TonerLabels</enumerationValue>
+                <enumerationValue key="Stamen_TonerLite">Stamen.TonerLite</enumerationValue>
+                <enumerationValue key="Stamen_Watercolor">Stamen.Watercolor</enumerationValue>
+                <enumerationValue key="Stamen_Terrain">Stamen.Terrain</enumerationValue>
+                <enumerationValue key="Stamen_TerrainBackground">Stamen.TerrainBackground</enumerationValue>
+                <enumerationValue key="Stamen_TopOSMRelief">Stamen.TopOSMRelief</enumerationValue>
+                <enumerationValue key="Stamen_TopOSMFeatures">Stamen.TopOSMFeatures</enumerationValue>
+
+                <enumerationValue key="Esri_WorldStreetMap">Esri.WorldStreetMap</enumerationValue>
+                <enumerationValue key="Esri_DeLorme">Esri.DeLorme</enumerationValue>
+                <enumerationValue key="Esri_WorldTopoMap">Esri.WorldTopoMap</enumerationValue>
+                <enumerationValue key="Esri_WorldImagery">Esri.WorldImagery</enumerationValue>
+                <enumerationValue key="Esri_WorldTerrain">Esri.WorldTerrain</enumerationValue>
+                <enumerationValue key="Esri_WorldShadedRelief">Esri.WorldShadedRelief</enumerationValue>
+                <enumerationValue key="Esri_WorldPhysical">Esri.WorldPhysical</enumerationValue>
+                <enumerationValue key="Esri_OceanBasemap">Esri.OceanBasemap</enumerationValue>
+                <enumerationValue key="Esri_NatGeoWorldMap">Esri.NatGeoWorldMap</enumerationValue>
+                <enumerationValue key="Esri_WorldGrayCanvas">Esri.WorldGrayCanvas</enumerationValue>
+
+
+                <enumerationValue key="BasemapAT_basemap">BasemapAT.basemap</enumerationValue>
+                <enumerationValue key="BasemapAT_grau">BasemapAT.grau</enumerationValue>
+                <enumerationValue key="BasemapAT_overlay">BasemapAT.overlay</enumerationValue>
+                <enumerationValue key="BasemapAT_highdpi">BasemapAT.highdpi</enumerationValue>
+                <enumerationValue key="BasemapAT_orthofoto">BasemapAT.orthofoto</enumerationValue>
+
+                <enumerationValue key="nlmaps_standaard">nlmaps.standaard</enumerationValue>
+                <enumerationValue key="nlmaps_pastel">nlmaps.pastel</enumerationValue>
+                <enumerationValue key="nlmaps_grijs">nlmaps.grijs</enumerationValue>
+                <enumerationValue key="nlmaps_luchtfoto">nlmaps.luchtfoto</enumerationValue>
+
+                <enumerationValue key="NASAGIBS_ModisTerraTrueColorCR">NASAGIBS.ModisTerraTrueColorCR</enumerationValue>
+                <enumerationValue key="NASAGIBS_ModisTerraBands367CR">NASAGIBS.ModisTerraBands367CR</enumerationValue>
+                <enumerationValue key="NASAGIBS_ViirsEarthAtNight2012">NASAGIBS.ViirsEarthAtNight2012</enumerationValue>
+                <enumerationValue key="NASAGIBS_ModisTerraLSTDay">NASAGIBS.ModisTerraLSTDay</enumerationValue>
+                <enumerationValue key="NASAGIBS_ModisTerraSnowCover">NASAGIBS.ModisTerraSnowCover</enumerationValue>
+                <enumerationValue key="NASAGIBS_ModisTerraAOD">NASAGIBS.ModisTerraAOD</enumerationValue>
+                <enumerationValue key="NASAGIBS_ModisTerraChlorophyll">NASAGIBS.ModisTerraChlorophyll</enumerationValue>
+
+                <enumerationValue key="NLS">NLS</enumerationValue>
+
+                <enumerationValue key="Bing_Road">Bing - Roads without additional imagery (needs Map key)</enumerationValue>
+            </enumerationValues>
+        </property>
+
+
         <property key="apiToken" type="string" required="false">
             <caption>Access token</caption>
             <category>Map properties</category>

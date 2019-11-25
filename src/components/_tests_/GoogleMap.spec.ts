@@ -24,6 +24,7 @@ describe("Google maps", () => {
         mapStyles: "",
         divStyles: {},
         mapProvider: "googleMaps",
+        mapType: "",
         inPreviewMode: false
     };
 
