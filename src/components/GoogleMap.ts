@@ -80,6 +80,9 @@ export class GoogleMap extends Component<GoogleMapsProps, GoogleMapState> {
             this.createUpdateMap(nextProps);
             this.setState({ resized: false });
         }
+        if (this.props.allImageOverlays !== nextProps.allImageOverlays) {
+            this.renderImageOverlays(nextProps);
+        }
     }
 
     componentDidUpdate() {
@@ -176,6 +179,24 @@ export class GoogleMap extends Component<GoogleMapsProps, GoogleMapState> {
                 return markerArray;
             }, []);
             this.setMapOnMarkers(this.map);
+            this.setBounds(this.bounds);
+        }
+    }
+
+    private renderImageOverlays(props: GoogleMapsProps) {
+        if (this.map && !props.fetchingImageOverlays && props.allImageOverlays) {
+            props.allImageOverlays.map((overlayData) => {
+                const url = overlayData.url;
+
+                const topRight = { lat: overlayData.bottomRightX, lng: overlayData.topLeftY };
+                const bottomLeft = { lat: overlayData.topLeftX, lng: overlayData.bottomRightY };
+
+                const bounds = new google.maps.LatLngBounds(topRight, bottomLeft);
+
+                return new google.maps.GroundOverlay(url, bounds);
+            }).forEach(overlay => {
+                overlay.setMap(this.map);
+            });
             this.setBounds(this.bounds);
         }
     }
