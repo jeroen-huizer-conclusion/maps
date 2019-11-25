@@ -207,11 +207,8 @@ export class LeafletMap extends Component<LeafletMapProps, LeafletMapState> {
 
                 const bounds = new LatLngBounds([ overlayData.topLeftX, overlayData.topLeftY ], [ overlayData.bottomRightX, overlayData.bottomRightY ]);
                 const url = overlayData.url;
-                if (url && url.length) {
-                    return imageOverlay(url, bounds);
-                }
 
-                return imageOverlay("img/MyFirstModule$Images$Mendix_logo.svg", bounds);
+                return imageOverlay(url, bounds);
             }).forEach(overlay => {
                 map.addLayer(overlay);
             });
