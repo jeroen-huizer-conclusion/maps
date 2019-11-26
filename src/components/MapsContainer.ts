@@ -265,10 +265,10 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
             return fetchImageOverlayURL(dataSourceProps)
                 .then(imageUrl => {
                     return [ {
-                        topLeftX: Number(dataSourceProps.staticTopLeftX),
-                        topLeftY: Number(dataSourceProps.staticTopLeftY),
-                        bottomRightX: Number(dataSourceProps.staticBottomRightX),
-                        bottomRightY: Number(dataSourceProps.staticBottomRightY),
+                        latitudeTop: Number(dataSourceProps.staticLatitudeTop),
+                        longitudeLeft: Number(dataSourceProps.staticLongitudeLeft),
+                        latitudeBottom: Number(dataSourceProps.staticLatitudeBottom),
+                        longitudeRight: Number(dataSourceProps.staticLongitudeRight),
                         url: imageUrl
                     } ];
                 }
@@ -293,10 +293,10 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
             .then(imageUrl => {
 
                 return {
-                    topLeftX: Number(mxObject.get(dataSourceProps.topLeftXAttribute)),
-                    topLeftY: Number(mxObject.get(dataSourceProps.topLeftYAttribute)),
-                    bottomRightX: Number(mxObject.get(dataSourceProps.bottomRightXAttribute)),
-                    bottomRightY: Number(mxObject.get(dataSourceProps.bottomRightYAttribute)),
+                    latitudeTop: Number(mxObject.get(dataSourceProps.latitudeTopAttribute)),
+                    longitudeLeft: Number(mxObject.get(dataSourceProps.longitudeLeftAttribute)),
+                    latitudeBottom: Number(mxObject.get(dataSourceProps.latitudeBottomAttribute)),
+                    longitudeRight: Number(mxObject.get(dataSourceProps.longitudeRightAttribute)),
                     url: imageUrl
                 };
             });
