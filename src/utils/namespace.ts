@@ -62,30 +62,33 @@ export namespace Container {
 
     export interface DataBaseImageOverlayProps {
 
-        topLeftXAttribute: string;
-        topLeftYAttribute: string;
-        bottomRightXAttribute: string;
-        bottomRightYAttribute: string;
+        latitudeTopAttribute: string;
+        longitudeLeftAttribute: string;
+        latitudeBottomAttribute: string;
+        longitudeRightAttribute: string;
 
+        opacity: string;
         urlAttribute: string;
     }
 
     export interface StaticImageOverlayProps {
         staticOverlayImage: string;
+        staticOpacity: string;
 
-        staticTopLeftX: string;
-        staticTopLeftY: string;
-        staticBottomRightX: string;
-        staticBottomRightY: string;
+        staticLatitudeTop: string;
+        staticLongitudeLeft: string;
+        staticLatitudeBottom: string;
+        staticLongitudeRight: string;
     }
 
     export interface ImageOverlay {
 
-        topLeftX: number;
-        topLeftY: number;
-        bottomRightX: number;
-        bottomRightY: number;
+        latitudeTop: number;
+        longitudeLeft: number;
+        latitudeBottom: number;
+        longitudeRight: number;
         url: string;
+        opacity: number;
     }
 
     export interface DefaultLocations {

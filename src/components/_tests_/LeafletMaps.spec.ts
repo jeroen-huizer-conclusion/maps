@@ -150,4 +150,20 @@ describe("Leaflet maps", () => {
 
         expect(createMarkerSpy).toHaveBeenCalledWith(customProps.allLocations);
     });
+
+    it("creates an imageoverlay at a given location with a url", () => {
+        const customProps = {
+            ...defaultProps,
+            allImageOverlays: [ { latitudeTop: 0, longitudeLeft: 0, latitudeBottom: 0, longitudeRight: 0, url: "" } ],
+            fetchingImageOverlay: false
+        };
+
+        const leafletMap = fullRenderLeafletMap(defaultProps);
+        const leafletMapInstance = leafletMap.instance() as any;
+        const createOverlaySpy = spyOn(leafletMapInstance, "renderImageOverlays").and.callThrough();
+
+        leafletMapInstance.componentWillReceiveProps(customProps);
+
+        expect(createOverlaySpy).toHaveBeenCalled();
+    });
 });

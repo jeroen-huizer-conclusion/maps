@@ -188,12 +188,12 @@ export class GoogleMap extends Component<GoogleMapsProps, GoogleMapState> {
             props.allImageOverlays.map((overlayData) => {
                 const url = overlayData.url;
 
-                const topRight = { lat: overlayData.bottomRightX, lng: overlayData.topLeftY };
-                const bottomLeft = { lat: overlayData.topLeftX, lng: overlayData.bottomRightY };
+                const topRight = { lat: overlayData.latitudeTop, lng: overlayData.longitudeRight };
+                const bottomLeft = { lat: overlayData.latitudeBottom, lng: overlayData.longitudeLeft };
 
                 const bounds = new google.maps.LatLngBounds(topRight, bottomLeft);
 
-                return new google.maps.GroundOverlay(url, bounds);
+                return new google.maps.GroundOverlay(url, bounds, { opacity: overlayData.opacity });
             }).forEach(overlay => {
                 overlay.setMap(this.map);
             });

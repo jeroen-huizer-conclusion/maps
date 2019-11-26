@@ -12,6 +12,7 @@ class MockGoogle {
         mockGoogleObject.maps.Marker = MarkerMock;
         mockGoogleObject.maps.event = EventMock;
         mockGoogleObject.maps.GeocoderStatus = GeocoderStatus;
+        mockGoogleObject.maps.GroundOverlay = GroundOverlayMock;
     }
 }
 
@@ -534,6 +535,75 @@ class MarkerMock implements google.maps.Marker {
     }
 
     unbindAll(): void {/** */
+    }
+}
+
+class GroundOverlayMock implements google.maps.GroundOverlay {
+    map!: google.maps.Map;
+
+    getBounds(){
+        const ne = new google.maps.LatLng(1,1)
+        const sw = new google.maps.LatLng(-1,-1)
+        return new google.maps.LatLngBounds(ne, sw)
+    }
+
+    getMap(){
+        return this.map;
+    }
+
+    getOpacity(){
+        return 1;
+    }
+
+    getUrl(){
+        return '';
+    }
+
+    setMap(){
+
+    }
+
+    setOpacity(){
+
+    }
+
+    addListener(_eventName: string, _handler: (...args: any[]) => void): google.maps.MapsEventListener {
+        return {
+            remove: () => {/** */
+            }
+        };
+    }
+
+    bindTo(){
+
+    }
+
+    changed(){
+      
+    }
+
+    get(){
+
+    }
+
+    notify(){
+
+    }
+
+    setValues(){
+
+    }
+
+    set(){
+
+    }
+
+    unbind(){
+
+    }
+
+    unbindAll(){
+        
     }
 }
 

@@ -149,7 +149,7 @@
         </property>
         <property key="imageOverlays" type="object" isList="true" required="false">
             <caption>Image overlays</caption>
-            <category>Map properties</category>
+            <category>Overlays</category>
             <description/>
             <properties>   
                 <!-- Data sources-->
@@ -198,23 +198,28 @@
                     <category>Static</category>
                     <description>Image from the modeler</description>
                 </property>
-                <property key="staticTopLeftX" type="string" required="false">
-                    <caption>Top left latitude</caption>
+                <property key="staticOpacity" type="string" required="false" defaultValue="1">
+                    <caption>Opacity</caption>
                     <category>Static</category>
                     <description/>
                 </property>
-                <property key="staticTopLeftY" type="string" required="false">
-                    <caption>Top left longitude</caption>
+                <property key="staticLatitudeTop" type="string" required="false">
+                    <caption>Latitude bound top</caption>
                     <category>Static</category>
                     <description/>
                 </property>
-                <property key="staticBottomRightX" type="string" required="false">
-                    <caption>Bottom right latitude</caption>
+                <property key="staticLongitudeLeft" type="string" required="false">
+                    <caption>Longitude bound left</caption>
                     <category>Static</category>
                     <description/>
                 </property>
-                <property key="staticBottomRightY" type="string" required="false">
-                    <caption>Bottom right longitude</caption>
+                <property key="staticLatitudeBottom" type="string" required="false">
+                    <caption>Latitude bound bottom</caption>
+                    <category>Static</category>
+                    <description/>
+                </property>
+                <property key="staticLongitudeRight" type="string" required="false">
+                    <caption>Longitude bound right</caption>
                     <category>Static</category>
                     <description/>
                 </property>
@@ -229,38 +234,43 @@
                         <enumerationValue key="urlImage">URL</enumerationValue>
                     </enumerationValues>
                 </property>
-                <property key="topLeftXAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
-                    <caption>Top left latitude</caption>
+                <property key="opacity" type="string" required="false" defaultValue="1">
+                    <caption>Opacity</caption>
+                    <category>Entity</category>
+                    <description/>
+                </property>
+                <property key="latitudeTopAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
+                    <caption>Latitude bound top</caption>
+                    <category>Entity</category>
+                    <description/>
+                    <attributeTypes>
+                        <attributeType name="Decimal"/>
+                    </attributeTypes>                    
+                </property>
+                <property key="longitudeLeftAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
+                    <caption>Longitude bound left</caption>
                     <category>Entity</category>
                     <description/>
                     <attributeTypes>
                         <attributeType name="Decimal"/>
                     </attributeTypes>
                 </property>
-                <property key="topLeftYAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
-                    <caption>Top left longitude</caption>
-                    <category>Entity</category>
-                    <description/>
-                    <attributeTypes>
-                        <attributeType name="Decimal"/>
-                    </attributeTypes>                    
-                </property>
-                <property key="bottomRightXAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
-                    <caption>Bottom right latitude</caption>
-                    <category>Entity</category>
-                    <description/>
-                    <attributeTypes>
-                        <attributeType name="Decimal"/>
-                    </attributeTypes>                    
-                </property>
-                <property key="bottomRightYAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
-                    <caption>Bottom right longitude</caption>
+                <property key="latitudeBottomAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
+                    <caption>Latitude bound bottom</caption>
                     <category>Entity</category>
                     <description/>
                     <attributeTypes>
                         <attributeType name="Decimal"/>
                     </attributeTypes>                    
                 </property>  
+                <property key="longitudeRightAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
+                    <caption>Longitude bound right</caption>
+                    <category>Entity</category>
+                    <description/>
+                    <attributeTypes>
+                        <attributeType name="Decimal"/>
+                    </attributeTypes>                    
+                </property>
                 <property key="urlAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
                     <caption>URL Attribute</caption>
                     <category>Entity</category>
