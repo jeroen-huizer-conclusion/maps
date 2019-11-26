@@ -134,6 +134,22 @@ describe("Google maps", () => {
         expect(createMarkerSpy).toHaveBeenCalledWith(customProps.allLocations);
     });
 
+    it("creates an imageoverlay at a given location with a url", () => {
+        const customProps = {
+            ...defaultProps,
+            allImageOverlays: [ { latitudeTop: 0, longitudeLeft: 0, latitudeBottom: 0, longitudeRight: 0, url: "" } ],
+            fetchingImageOverlay: false
+        };
+
+        const googleMaps = fullRenderGoogleMap(defaultProps);
+        const googleMapsInstance = googleMaps.instance() as any;
+        const createOverlaySpy = spyOn(googleMapsInstance, "renderImageOverlays").and.callThrough();
+
+        googleMapsInstance.componentWillReceiveProps(customProps);
+
+        expect(createOverlaySpy).toHaveBeenCalled();
+    });
+
     afterAll(() => {
         window.google = undefined;
     });
