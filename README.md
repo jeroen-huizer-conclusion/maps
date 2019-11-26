@@ -25,6 +25,8 @@
     * Call Nanoflow
 * Customize the display of the marker. If the marker can not be found from the custom markers. The widget will use
 the specified custom markers else it will use the widget bundled marker.
+* Show overlay images on the map
+    * Multiple data sources supported
 
 ## Limitations
 * Context and static datasource are Offline capable with Mendix data, however you still need to be online to view the map  
@@ -75,6 +77,22 @@ Mendix 7.18.0
 - Select **Database**, Add the **locations** entity
 - Add the **Latitude** and **Longitude** attributes
 - Add an **XPath Constraint** `Optional`
+
+![static](/assets/overlays.png)
+
+### Overlays
+- On the **Overlays** tab, select **new**
+- For static overlays, select **static**
+    - On the **static tab**, select the static image
+    - Provide the bounds for the image and the opacity
+- For other overlays
+    - Configure the source: **Database**, **Microflow**, **Nanoflow**
+    - Configure the enitity that holds the overlay in **Image overlay entity**
+    - On the **Entity** tab, map the attributes
+
+Note:
+If the **Image overlay entity** extends **System.Image** then the object will be used as overlay.
+If the image should be retrieved from a url, specify the **URL** attribute
 
 ### Custom Markers
 
