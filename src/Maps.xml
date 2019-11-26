@@ -149,7 +149,7 @@
         </property>
         <property key="imageOverlays" type="object" isList="true" required="false">
             <caption>Image overlays</caption>
-            <category>Map properties</category>
+            <category>Overlays</category>
             <description/>
             <properties>   
                 <!-- Data sources-->
