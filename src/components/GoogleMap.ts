@@ -193,7 +193,7 @@ export class GoogleMap extends Component<GoogleMapsProps, GoogleMapState> {
 
                 const bounds = new google.maps.LatLngBounds(topRight, bottomLeft);
 
-                return new google.maps.GroundOverlay(url, bounds);
+                return new google.maps.GroundOverlay(url, bounds, { opacity: overlayData.opacity });
             }).forEach(overlay => {
                 overlay.setMap(this.map);
             });

@@ -269,7 +269,8 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
                         longitudeLeft: Number(dataSourceProps.staticLongitudeLeft),
                         latitudeBottom: Number(dataSourceProps.staticLatitudeBottom),
                         longitudeRight: Number(dataSourceProps.staticLongitudeRight),
-                        url: imageUrl
+                        url: imageUrl,
+                        opacity: Number(dataSourceProps.staticOpacity ? dataSourceProps.staticOpacity : 0)
                     } ];
                 }
             );
@@ -297,7 +298,8 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
                     longitudeLeft: Number(mxObject.get(dataSourceProps.longitudeLeftAttribute)),
                     latitudeBottom: Number(mxObject.get(dataSourceProps.latitudeBottomAttribute)),
                     longitudeRight: Number(mxObject.get(dataSourceProps.longitudeRightAttribute)),
-                    url: imageUrl
+                    url: imageUrl,
+                    opacity: Number(dataSourceProps.opacity ? dataSourceProps.opacity : 0)
                 };
             });
         }

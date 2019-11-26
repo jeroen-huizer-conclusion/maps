@@ -208,7 +208,7 @@ export class LeafletMap extends Component<LeafletMapProps, LeafletMapState> {
                 const bounds = new LatLngBounds([ overlayData.latitudeTop, overlayData.longitudeLeft ], [ overlayData.latitudeBottom, overlayData.longitudeRight ]);
                 const url = overlayData.url;
 
-                return imageOverlay(url, bounds);
+                return imageOverlay(url, bounds, { opacity: overlayData.opacity });
             }).forEach(overlay => {
                 map.addLayer(overlay);
             });

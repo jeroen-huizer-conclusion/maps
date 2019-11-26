@@ -198,6 +198,11 @@
                     <category>Static</category>
                     <description>Image from the modeler</description>
                 </property>
+                <property key="staticOpacity" type="string" required="false" defaultValue="1">
+                    <caption>Opacity</caption>
+                    <category>Static</category>
+                    <description/>
+                </property>
                 <property key="staticLatitudeTop" type="string" required="false">
                     <caption>Latitude bound top</caption>
                     <category>Static</category>
@@ -228,6 +233,11 @@
                         <enumerationValue key="systemImage">System image</enumerationValue>
                         <enumerationValue key="urlImage">URL</enumerationValue>
                     </enumerationValues>
+                </property>
+                <property key="opacity" type="string" required="false" defaultValue="1">
+                    <caption>Opacity</caption>
+                    <category>Entity</category>
+                    <description/>
                 </property>
                 <property key="latitudeTopAttribute" type="attribute" entityProperty="imageOverlayEntity" required="false">
                     <caption>Latitude bound top</caption>

@@ -67,11 +67,13 @@ export namespace Container {
         latitudeBottomAttribute: string;
         longitudeRightAttribute: string;
 
+        opacity: string;
         urlAttribute: string;
     }
 
     export interface StaticImageOverlayProps {
         staticOverlayImage: string;
+        staticOpacity: string;
 
         staticLatitudeTop: string;
         staticLongitudeLeft: string;
@@ -86,6 +88,7 @@ export namespace Container {
         latitudeBottom: number;
         longitudeRight: number;
         url: string;
+        opacity: number;
     }
 
     export interface DefaultLocations {
