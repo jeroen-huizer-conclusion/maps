@@ -174,7 +174,7 @@
                     <category>Data source</category>
                     <description>Constraint for the data source 'Database' images. It could be used with relation to '[%CurrentObject%]'</description>
                 </property>
-                <property key="inputParameterEntity" type="entity" required="false">
+                <property key="inputParameterEntity" type="entity" required="false" allowNonPersistableEntities="true">
                     <caption>Input parameter entity</caption>
                     <category>Data source</category>
                     <description>Entity of the parameter passed to the microflow or nanoflow, this should be equal to the context</description>

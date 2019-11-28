@@ -249,7 +249,7 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
     private fetchImageOverlays = (contextObject?: mendix.lib.MxObject) => {
         this.setState({ isFetchingImageOverlays: true });
         Promise.all(this.props.imageOverlays.map(overlay => this.retrieveImageOverlays(overlay, contextObject)))
-            .then(imageOverlays => imageOverlays.reduce((o1, o2) => o1.concat(o2, [])))
+            .then(imageOverlays => imageOverlays.reduce((o1, o2) => o1.concat(o2), []))
             .then(imageOverlays => {
                 this.setState({
                     imageOverlays,
