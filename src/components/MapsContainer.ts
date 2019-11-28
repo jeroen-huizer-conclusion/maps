@@ -46,8 +46,10 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
             alertMessage: this.state.alertMessage,
             divStyles: Utils.parseStyle(this.props.style),
             onClickMarker: this.onClickMarker,
+            onClickContextMenuAction: this.onClickContextMenuAction,
             mapsToken: mapsApiToken,
-            inPreviewMode: false
+            inPreviewMode: false,
+            ...this.props as Container.ContextMenuProps
         };
 
         return this.props.mapProvider === "googleMaps"
@@ -197,15 +199,28 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
     private onClickMarker = (event: LeafletEvent & google.maps.MouseEvent, locationAttr: DataSourceLocationProps) => {
         const { locations } = this.state;
         const latitude = this.props.mapProvider === "googleMaps" ? event.latLng.lat() : event.target.getLatLng().lat;
-        this.executeAction(locations[locations.findIndex(targetLoc => targetLoc.latitude === latitude)], locationAttr);
+        this.executeAction(locations[locations.findIndex(targetLoc => targetLoc.latitude === latitude)].mxObject, locationAttr);
     }
 
-    private executeAction = (markerLocation: Location, locationAttr: DataSourceLocationProps) => {
-        const object = markerLocation.mxObject;
+    private onClickContextMenuAction = (action: Container.ContextMenuAction, latitude?: number, longitude?: number): void => {
+        const object = this.props.mxObject;
+        if (object && object.getEntity() === action.inputParameterEntity) {
+
+            if (action.latitudeAttribute && latitude) {
+                object.set(action.latitudeAttribute, window.mx.parser.parseValue(`${latitude}`, "decimal", { places: 8 }));
+            }
+            if (action.longitudeAttribute && longitude) {
+                object.set(action.longitudeAttribute, window.mx.parser.parseValue(`${longitude}`, "decimal", { places: 8 }));
+            }
+        }
+        this.executeAction(object, action);
+    }
+
+    private executeAction = (object: mendix.lib.MxObject | undefined, eventProps: Container.EventProps) => {
 
         if (object) {
             const { mxform } = this.props;
-            const { onClickEvent, onClickMicroflow, onClickNanoflow, openPageAs, page } = locationAttr;
+            const { onClickEvent, onClickMicroflow, onClickNanoflow, openPageAs, page } = eventProps;
             const context = new mendix.lib.MxContext();
             context.setContext(object.getEntity(), object.getGuid());
 

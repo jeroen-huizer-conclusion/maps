@@ -14,12 +14,12 @@ export namespace Container {
         style?: string;
     }
 
-    export interface MapsContainerProps extends WrapperProps, MapProps {
+    export interface MapsContainerProps extends WrapperProps, MapProps, ContextMenuProps {
         locations: DataSourceLocationProps[];
         markerImages: EnumerationImages[];
     }
 
-    export interface DataSourceLocationProps extends DatabaseLocationProps, StaticLocationProps, MarkerIconProps, MarkerEvents {
+    export interface DataSourceLocationProps extends DatabaseLocationProps, StaticLocationProps, MarkerIconProps, EventProps {
         dataSourceType: DataSource;
         locationsEntity: string;
         entityConstraint: string;
@@ -58,14 +58,6 @@ export namespace Container {
         markerImageAttribute: string;
     }
 
-    export interface MarkerEvents {
-        onClickMicroflow: string;
-        onClickNanoflow: Data.Nanoflow;
-        onClickEvent: OnClickOptions;
-        openPageAs: PageLocation;
-        page: string;
-    }
-
     export interface MapControlOptions {
         optionDrag?: boolean;
         optionScroll?: boolean;
@@ -86,6 +78,26 @@ export namespace Container {
     export interface MapProps extends MapControlOptions, DefaultLocations, MapUtils.Dimensions {
         mapProvider: mapProviders;
         apiToken?: string;
+    }
+
+    export interface ContextMenuProps {
+        popupTitle?: string;
+        popupActions?: ContextMenuAction[];
+    }
+
+    export interface ContextMenuAction extends EventProps {
+        actionLabel: string;
+        inputParameterEntity: string;
+        latitudeAttribute: string;
+        longitudeAttribute: string;
+    }
+
+    export interface EventProps {
+        onClickMicroflow: string;
+        onClickNanoflow: Data.Nanoflow;
+        onClickEvent: OnClickOptions;
+        openPageAs: PageLocation;
+        page: string;
     }
 }
 

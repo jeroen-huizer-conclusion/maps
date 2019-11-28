@@ -3,8 +3,10 @@ import {
     FeatureGroup,
     LatLngLiteral,
     LeafletEvent,
+    LeafletMouseEvent,
     Map,
     Marker,
+    Popup,
     TileLayerOptions,
     icon,
     tileLayer
@@ -16,7 +18,9 @@ import { Container, MapUtils } from "../utils/namespace";
 import Utils from "../utils/Utils";
 import { Alert } from "./Alert";
 import { validLocation } from "../utils/Validations";
+
 type MapProps = Container.MapProps;
+type ContextMenuProps = Container.ContextMenuProps;
 type DataSourceLocationProps = Container.DataSourceLocationProps;
 type Location = Container.Location;
 type SharedProps = MapUtils.SharedProps;
@@ -24,8 +28,9 @@ type SharedProps = MapUtils.SharedProps;
 const customUrls = Utils.customUrls;
 const mapAttr = Utils.mapAttr;
 
-export interface LeafletMapProps extends SharedProps, MapProps {
+export interface LeafletMapProps extends SharedProps, MapProps, ContextMenuProps {
     onClickMarker?: (event: LeafletEvent, locationAttr: DataSourceLocationProps) => void;
+    onClickContextMenuAction?: (action: Container.ContextMenuAction, latitude?: number, longitude?: number) => void;
 }
 
 export interface LeafletMapState {
@@ -40,6 +45,7 @@ export class LeafletMap extends Component<LeafletMapProps, LeafletMapState> {
     private map?: Map;
     private markerGroup = new FeatureGroup();
     private readonly onResizeHandle = this.onResize.bind(this);
+    private popup?: Popup;
 
     readonly state: LeafletMapState = {
         center: this.getDefaultCenter(this.props),
@@ -90,6 +96,10 @@ export class LeafletMap extends Component<LeafletMapProps, LeafletMapState> {
                 .addLayer(this.setTileLayer());
             if (this.props.inPreviewMode) {
                 this.setDefaultCenter(this.props);
+            }
+            if (this.props.popupActions && this.props.popupActions.length) {
+                this.popup = this.createPopup();
+                this.map.on("contextmenu", this.openPopup);
             }
         }
     }
@@ -228,5 +238,58 @@ export class LeafletMap extends Component<LeafletMapProps, LeafletMapState> {
         }
 
         return marker;
+    }
+
+    private openPopup = (e: LeafletMouseEvent) => {
+        if (this.popup && this.map) {
+            this.popup.setLatLng(e.latlng);
+            this.popup.openOn(this.map);
+        }
+    }
+
+    private handleActionClick = (action: Container.ContextMenuAction) => {
+
+        let lat; let lng;
+        if (this.popup) {
+            const latLng = this.popup.getLatLng();
+            lat = latLng ? latLng.lat : undefined;
+            lng = latLng ? latLng.lng : undefined;
+        }
+
+        if (this.props.onClickContextMenuAction) {
+            this.props.onClickContextMenuAction(action, lat, lng);
+        }
+
+        if (this.map)
+            this.map.closePopup();
+    }
+
+    private createPopup = (): Popup => {
+
+        const content = document.createElement("div");
+        content.innerHTML = `<div>${this.props.popupTitle}</div>`;
+
+        if (this.props.popupActions) {
+            this.props.popupActions.forEach(popupAction => {
+                const link = document.createElement("a");
+                link.className = "mx-link";
+                link.addEventListener("click", () => {
+                    this.handleActionClick(popupAction);
+                });
+
+                const glyph = document.createElement("span");
+                glyph.className = "glyphicon glyphicon-chevron-right";
+                link.appendChild(glyph);
+                link.innerHTML += `${popupAction.actionLabel}`;
+
+                const row = document.createElement("div");
+                row.appendChild(link);
+                content.appendChild(row);
+            });
+
+        }
+
+        return new Popup()
+            .setContent(content);
     }
 }
