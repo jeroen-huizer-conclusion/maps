@@ -513,9 +513,9 @@
                     </enumerationValues>
                 </property>
                 <property key="inputParameterEntity" type="entity" required="false" allowNonPersistableEntities="true">
-                    <caption>Locations entity</caption>
+                    <caption>Context entity</caption>
                     <category>Action</category>
-                    <description>Must be the same as the context object</description>
+                    <description>Is sent as parameter to the action</description>
                 </property>
                 <property key="latitudeAttribute" type="attribute" entityProperty="inputParameterEntity" required="false">
                     <caption>Latitude attribute</caption>
