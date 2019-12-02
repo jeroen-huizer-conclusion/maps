@@ -486,5 +486,82 @@
                 </property>
             </properties>
         </property>
+        <property key="popupTitle" type="string" multiline="false" required="false">
+            <caption>Title</caption>
+            <category>Context menu</category>
+            <description/>
+        </property>
+        <property key="popupActions" type="object" isList="true" required="false">
+            <caption>Actions</caption>
+            <category>Context menu</category>
+            <description/>
+            <properties>
+                <property key="actionLabel" type="string" multiline="false" required="false">
+                    <caption>Label</caption>
+                    <category>Action</category>
+                    <description/>
+                </property>
+                <property key="onClickEvent" type="enumeration" defaultValue="doNothing">
+                    <caption>On click</caption>
+                    <category>Action</category>
+                    <description/>
+                    <enumerationValues>
+                        <enumerationValue key="doNothing">Do nothing</enumerationValue>
+                        <enumerationValue key="callMicroflow">Call a microflow</enumerationValue>
+                        <enumerationValue key="callNanoflow">Call a nanoflow</enumerationValue>
+                        <enumerationValue key="showPage">Show a page</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="inputParameterEntity" type="entity" required="false" allowNonPersistableEntities="true">
+                    <caption>Locations entity</caption>
+                    <category>Action</category>
+                    <description>Must be the same as the context object</description>
+                </property>
+                <property key="latitudeAttribute" type="attribute" entityProperty="inputParameterEntity" required="false">
+                    <caption>Latitude attribute</caption>
+                    <category>Action</category>
+                    <description/>
+                    <attributeTypes>
+                        <attributeType name="Decimal"/>
+                    </attributeTypes>
+                </property>
+                <property key="longitudeAttribute" type="attribute" entityProperty="inputParameterEntity" required="false">
+                    <caption>Longitude attribute</caption>
+                    <category>Action</category>
+                    <description>If latitude and longitude attributes are set, the location where the user clicked the map will be set on the context object.</description>
+                    <attributeTypes>
+                        <attributeType name="Decimal"/>
+                    </attributeTypes>
+                </property>
+                <property key="onClickMicroflow" type="microflow" required="false" entityProperty="inputParameterEntity">
+                    <caption>On click microflow</caption>
+                    <category>Action</category>
+                    <description>The microflow that will be executed when this action is selected</description>
+                    <returnType type="Void" />
+                </property>
+                <property key="onClickNanoflow" type="nanoflow" required="false" entityProperty="inputParameterEntity">
+                    <caption>On click nanoflow</caption>
+                    <category>Action</category>
+                    <description>The nanoflow that will be executed when this action is selected</description>
+                    <returnType type="Void" />
+                </property>
+                <property key="openPageAs" type="enumeration" defaultValue="content">
+                    <caption>Open page as</caption>
+                    <category>Action</category>
+                    <description/>
+                    <enumerationValues>
+                        <enumerationValue key="content">Full page</enumerationValue>
+                        <enumerationValue key="popup">Popup</enumerationValue>
+                        <enumerationValue key="modal">Blocking popup</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <property key="page" type="form" required="false">
+                    <caption>Page</caption>
+                    <category>Action</category>
+                    <description>The page that will be opened when this action is selected</description>
+                </property>
+            </properties>
+
+        </property>
     </properties>
 </widget>

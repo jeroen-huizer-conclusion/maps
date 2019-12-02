@@ -38,3 +38,7 @@
 .widget-maps {
     position: relative;
 }
+
+.widget-leaflet-maps.mx-link{
+    font-size: 14px;
+}
