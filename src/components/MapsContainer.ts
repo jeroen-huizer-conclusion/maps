@@ -215,10 +215,10 @@ class MapsContainer extends Component<MapsContainerProps, MapsContainerState> {
         if (object && object.getEntity() === action.inputParameterEntity) {
 
             if (action.latitudeAttribute && latitude) {
-                object.set(action.latitudeAttribute, window.mx.parser.parseValue(`${latitude}`, "decimal", { places: 8 }));
+                object.set(action.latitudeAttribute, latitude.toFixed(8));
             }
             if (action.longitudeAttribute && longitude) {
-                object.set(action.longitudeAttribute, window.mx.parser.parseValue(`${longitude}`, "decimal", { places: 8 }));
+                object.set(action.longitudeAttribute, longitude.toFixed(8));
             }
         }
         this.executeAction(object, action);
